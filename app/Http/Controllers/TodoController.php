@@ -7,8 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Routing\Controller as BaseController;
 
-class TodoController extends BaseController
-{
+class TodoController extends BaseController {
     /**
      * Create a new controller instance.
      */
@@ -40,6 +39,7 @@ class TodoController extends BaseController
         $validated = $request->validate([
             'name' => 'required|string|max:255',
             'description' => 'required|string',
+            'priority' => 'required|in:high,medium,low',
             'due_date' => 'required|date',
         ]);
 
@@ -52,6 +52,7 @@ class TodoController extends BaseController
             'tmp_id' => $tmpId,
             'name' => $validated['name'],
             'description' => $validated['description'],
+            'priority' => $validated['priority'],
             'due_date' => $validated['due_date'],
         ];
         
@@ -87,6 +88,7 @@ class TodoController extends BaseController
                 'user_id' => $userId,
                 'name' => $item['name'],
                 'description' => $item['description'],
+                'priority' => $item['priority'] ?? 'medium', // Default to medium if not set
                 'due_date' => $item['due_date'],
             ]);
         }
@@ -115,6 +117,7 @@ class TodoController extends BaseController
                 'tmp_id' => $item->id,
                 'name' => $item->name,
                 'description' => $item->description,
+                'priority' => $item->priority,
                 'due_date' => $item->due_date,
             ];
         })->toArray();

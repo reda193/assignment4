@@ -22,6 +22,18 @@
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
+                    <div class="col-md-4">
+                        <label for="priority" class="form-label">Priority</label>
+                        <select class="form-select @error('priority') is-invalid @enderror" id="priority" name="priority" required>
+                            <option value="" disabled {{ old('priority') ? '' : 'selected' }}>Select priority</option>
+                            <option value="high" {{ old('priority') == 'high' ? 'selected' : '' }}>High</option>
+                            <option value="medium" {{ old('priority') == 'medium' ? 'selected' : '' }}>Medium</option>
+                            <option value="low" {{ old('priority') == 'low' ? 'selected' : '' }}>Low</option>
+                        </select>
+                        @error('priority')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
                     <div class="col-md-12">
                         <label for="description" class="form-label">Description</label>
                         <textarea class="form-control @error('description') is-invalid @enderror" id="description" name="description" rows="3" required>{{ old('description') }}</textarea>
@@ -65,6 +77,7 @@
                                 <tr>
                                     <th>Name</th>
                                     <th>Description</th>
+                                    <th>Priority</th>
                                     <th>Due Date</th>
                                 </tr>
                             </thead>
@@ -73,6 +86,19 @@
                                     <tr>
                                         <td>{{ $item['name'] }}</td>
                                         <td>{{ $item['description'] }}</td>
+                                        <td>
+                                            @if(isset($item['priority']))
+                                                @if($item['priority'] == 'high')
+                                                    <span class="badge bg-danger">High</span>
+                                                @elseif($item['priority'] == 'medium')
+                                                    <span class="badge bg-warning text-dark">Medium</span>
+                                                @elseif($item['priority'] == 'low')
+                                                    <span class="badge bg-success">Low</span>
+                                                @endif
+                                            @else
+                                                <span class="badge bg-secondary">Not Set</span>
+                                            @endif
+                                        </td>
                                         <td>{{ \Carbon\Carbon::parse($item['due_date'])->format('M d, Y h:i A') }}</td>
                                     </tr>
                                 @endforeach
