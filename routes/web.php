@@ -48,10 +48,18 @@ Route::get('/auth-detailed', function () {
     $isLoggedIn = Auth::check();
     $userData = $isLoggedIn ? Auth::user()->toArray() : null;
     $session = session()->all();
-        
+    
+
+    $todoItems = session('todo_items', []);
+    
+  
+
+    
     return [
         'authenticated' => $isLoggedIn,
         'user' => $userData,
+        'todo_items_in_session' => $todoItems,  
+        'todo_item_count' => count($todoItems), 
         'session_data' => $session,
         'request_info' => [
             'path' => request()->path(),
