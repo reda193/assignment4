@@ -14,6 +14,7 @@ class TodoItem extends Model
         'user_id',
         'name',
         'description',
+        'priority',
         'due_date',
     ];
 

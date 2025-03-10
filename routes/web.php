@@ -6,8 +6,8 @@ use App\Http\Controllers\TodoController;
 
 // Home route - Use the app layout
 Route::get('/', function () {
-    return view('layouts.app');
-});
+    return view('home');
+})->name('home');
 
 Route::middleware('guest')->group(function () {
     Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
