@@ -1,4 +1,3 @@
-<!-- resources/views/todo/manage.blade.php -->
 @extends('layouts.app')
 
 @section('content')
