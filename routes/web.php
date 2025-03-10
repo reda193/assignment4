@@ -27,3 +27,38 @@ Route::middleware('auth')->group(function () {
 Route::middleware('auth')->group(function () {
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 });
+
+Route::get('/login', function () {
+    if (Auth::check()) {
+        return redirect('/manage');
+    }
+    
+    return app(AuthController::class)->showLoginForm();
+})->name('login');
+
+Route::get('/register', function () {
+    if (Auth::check()) {
+        return redirect('/manage');
+    }
+    
+    return app(AuthController::class)->showRegistrationForm();
+})->name('register');
+
+Route::get('/auth-detailed', function () {
+    $isLoggedIn = Auth::check();
+    $userData = $isLoggedIn ? Auth::user()->toArray() : null;
+    $session = session()->all();
+        
+    return [
+        'authenticated' => $isLoggedIn,
+        'user' => $userData,
+        'session_data' => $session,
+        'request_info' => [
+            'path' => request()->path(),
+            'url' => request()->url(),
+            'method' => request()->method(),
+            'ip' => request()->ip(),
+            'user_agent' => request()->userAgent(),
+        ]
+    ];
+});
