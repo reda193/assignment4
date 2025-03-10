@@ -15,3 +15,11 @@ Route::middleware('guest')->group(function () {
     Route::get('/register', [AuthController::class, 'showRegistrationForm'])->name('register');
     Route::post('/register', [AuthController::class, 'register']);
 });
+
+Route::middleware('auth')->group(function () {
+    Route::get('/manage', [TodoController::class, 'index'])->name('manage');
+    Route::post('/manage/add-item', [TodoController::class, 'addItem'])->name('todo.add');
+    Route::post('/manage/clear-list', [TodoController::class, 'clearList'])->name('todo.clear');
+    Route::post('/manage/save-list', [TodoController::class, 'saveList'])->name('todo.save');
+    Route::post('/manage/restore-list', [TodoController::class, 'restoreList'])->name('todo.restore');
+});
