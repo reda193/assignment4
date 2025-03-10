@@ -23,3 +23,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/manage/save-list', [TodoController::class, 'saveList'])->name('todo.save');
     Route::post('/manage/restore-list', [TodoController::class, 'restoreList'])->name('todo.restore');
 });
+
+Route::middleware('auth')->group(function () {
+    Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+});

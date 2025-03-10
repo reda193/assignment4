@@ -5,8 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\TodoItem;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Routing\Controller as BaseController;
 
-class TodoController extends Controller
+class TodoController extends BaseController
 {
     /**
      * Create a new controller instance.
