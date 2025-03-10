@@ -49,7 +49,7 @@
                         </li>
                     @else
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('register') }}">Register</a>
+                            <a class="nav-link" href="{{ route('register') }}">Registe</a>
                         </li>
                     @endauth
                 </ul>
